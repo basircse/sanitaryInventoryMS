@@ -38,7 +38,7 @@
     <string name="act_contact">Contact your provider</string>
     <string name="act_call">Call</string>
     <string name="act_whatsapp">WhatsApp</string>
-    <string name="act_privacy">Encrypted backups of this app\'s data are sent automatically to your provider.</string>
+    <string name="act_privacy">Encrypted backups of this app\'s data and a daily usage summary (item and sales counts) are sent automatically to your provider.</string>
     <string name="act_success">License active until %1$s.</string>
     <string name="wa_device_msg">Hello, my Ajwa Inventory device code is %1$s. Please send a new license key.</string>
     <string name="err_key_malformed">Key is not valid. Copy and paste the whole key.</string>

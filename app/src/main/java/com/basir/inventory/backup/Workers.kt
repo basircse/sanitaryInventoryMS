@@ -16,6 +16,7 @@ import com.basir.inventory.data.SettingsRepository
 import com.basir.inventory.license.LicenseState
 import com.basir.inventory.shared.BackupMode
 import com.basir.inventory.ui.Notifications
+import com.basir.inventory.util.ErrorLog
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -30,7 +31,19 @@ class BackupWorker(context: Context, params: WorkerParameters) : CoroutineWorker
         WorkScheduler.uploadPending(applicationContext)
         Result.success()
     } catch (e: Exception) {
+        ErrorLog.record(applicationContext, "backup", e)
         if (runAttemptCount < 3) Result.retry() else Result.failure()
+    }
+}
+
+/** Sends the daily usage heartbeat to the provider's monitoring sheet. */
+class HeartbeatWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
+    override suspend fun doWork(): Result {
+        if (!BackupUploader.isConfigured) return Result.success()
+        return if (Heartbeat.send(applicationContext, applicationContext.container)) {
+            WorkScheduler.markHeartbeatSent(applicationContext)
+            Result.success()
+        } else if (runAttemptCount < 5) Result.retry() else Result.failure()
     }
 }
 
@@ -60,6 +73,9 @@ object WorkScheduler {
     private const val BACKUP_NOW = "backup_now"
     private const val UPLOAD = "upload_backups"
     private const val REMINDER = "license_reminder"
+    private const val HEARTBEAT = "heartbeat_daily"
+    private const val HEARTBEAT_NOW = "heartbeat_now"
+    private const val KEY_HEARTBEAT = "last_heartbeat"
     private const val PREFS = "work"
     private const val KEY_MODE = "scheduled_mode"
     private val BACKUP_TIME: LocalTime = LocalTime.of(21, 0)
@@ -85,6 +101,29 @@ object WorkScheduler {
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(REMINDER, ExistingPeriodicWorkPolicy.KEEP, request)
     }
 
+    private val online = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+    /** Daily heartbeat, sent whenever the phone is online, even if the app isn't opened. */
+    fun scheduleHeartbeat(context: Context) {
+        val request = PeriodicWorkRequestBuilder<HeartbeatWorker>(24, TimeUnit.HOURS)
+            .setConstraints(online)
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(HEARTBEAT, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
+
+    /** Extra heartbeat on app open, at most one per 20 hours. */
+    fun heartbeatIfDue(context: Context) {
+        val last = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getLong(KEY_HEARTBEAT, 0)
+        if (System.currentTimeMillis() - last < TimeUnit.HOURS.toMillis(20)) return
+        val request = OneTimeWorkRequestBuilder<HeartbeatWorker>().setConstraints(online).build()
+        WorkManager.getInstance(context).enqueueUniqueWork(HEARTBEAT_NOW, ExistingWorkPolicy.KEEP, request)
+    }
+
+    fun markHeartbeatSent(context: Context) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putLong(KEY_HEARTBEAT, System.currentTimeMillis()).apply()
+    }
+
     fun backupNow(context: Context) {
         WorkManager.getInstance(context).enqueueUniqueWork(
             BACKUP_NOW, ExistingWorkPolicy.KEEP, OneTimeWorkRequestBuilder<BackupWorker>().build(),
@@ -93,7 +132,7 @@ object WorkScheduler {
 
     fun uploadPending(context: Context) {
         val request = OneTimeWorkRequestBuilder<UploadWorker>()
-            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .setConstraints(online)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
             .build()
         WorkManager.getInstance(context).enqueueUniqueWork(UPLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)

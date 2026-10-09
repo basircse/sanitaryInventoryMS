@@ -4,6 +4,7 @@ import android.util.Base64
 import com.basir.inventory.BuildConfig
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import java.io.File
@@ -38,8 +39,14 @@ object BackupUploader {
             put("fileName", file.name)
             put("file", Base64.encodeToString(file.readBytes(), Base64.NO_WRAP))
             if (summaryJson != null) put("summary", Json.parseToJsonElement(summaryJson) as JsonElement)
-        }.toString().toByteArray()
+        }
+        return post(body)
+    }
 
+    /** POSTs a JSON object to the relay; true when it answers {"ok":true}. */
+    fun post(json: JsonObject): Boolean {
+        if (!isConfigured) return false
+        val body = json.toString().toByteArray()
         return runCatching {
             val conn = (URL(BuildConfig.BACKUP_ENDPOINT).openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"

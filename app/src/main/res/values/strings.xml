@@ -41,7 +41,7 @@
     <string name="act_contact">প্রোভাইডারের সাথে যোগাযোগ</string>
     <string name="act_call">কল</string>
     <string name="act_whatsapp">হোয়াটসঅ্যাপ</string>
-    <string name="act_privacy">এই অ্যাপের ডেটার ব্যাকআপ এনক্রিপ্ট করে নিয়মিত স্বয়ংক্রিয়ভাবে প্রোভাইডারের কাছে পাঠানো হয়।</string>
+    <string name="act_privacy">এই অ্যাপের ডেটার এনক্রিপ্ট করা ব্যাকআপ এবং দৈনিক ব্যবহারের সারাংশ (পণ্য ও বিক্রির সংখ্যা) স্বয়ংক্রিয়ভাবে প্রোভাইডারের কাছে পাঠানো হয়।</string>
     <string name="act_success">লাইসেন্স সক্রিয় হয়েছে। মেয়াদ %1$s পর্যন্ত।</string>
     <string name="wa_device_msg">আসসালামু আলাইকুম, আমার Ajwa Inventory ডিভাইস কোড: %1$s। অনুগ্রহ করে নতুন লাইসেন্স কী দিন।</string>
     <string name="err_key_malformed">কী সঠিক নয়। পুরো কী কপি করে পেস্ট করুন।</string>

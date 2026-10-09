@@ -45,6 +45,8 @@ class MainActivity : ComponentActivity() {
             container.settings.putLong(SettingsRepository.LAST_OPENED, System.currentTimeMillis())
             if (state is LicenseState.Active) WorkScheduler.scheduleBackups(this@MainActivity, state.backupMode)
             WorkScheduler.scheduleReminders(this@MainActivity)
+            WorkScheduler.scheduleHeartbeat(this@MainActivity)
+            WorkScheduler.heartbeatIfDue(this@MainActivity)
             WorkScheduler.catchUpIfOverdue(this@MainActivity)
         }
         setContent {

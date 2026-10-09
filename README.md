@@ -36,7 +36,28 @@ encrypted backups e-mailed to the provider.
       Opening that URL in a browser should show `{"ok":true,...}`.
    5. `token` in `relay.properties` must equal `TOKEN` in the script. Both files are git-ignored;
       on a fresh clone create `relay.properties` with `endpoint=` and `token=<random string>`.
+   6. In the script editor, choose the function `setupMonitorSheet` and click *Run* once. It
+      asks for Google Sheets permission and creates the **Ajwa Inventory Monitor** sheet (its link
+      is e-mailed to you).
    Gmail allows ~100 e-mails/day from scripts — plenty for daily backups from one shop.
+
+   **Updating the script later:** paste the new code, then *Deploy → Manage deployments → ✏️ Edit
+   → Version: New version → Deploy*. This keeps the same URL, so no APK rebuild is needed.
+
+## Usage monitoring (Google Sheet)
+
+Each phone sends a small **heartbeat** once a day when online (and when the app is opened, at most
+every 20 hours). It carries counts only — no item names or prices. The script records it, and every
+backup, in the **Ajwa Inventory Monitor** sheet in your Google Drive:
+
+- **Status** tab — one live row per phone: last heard, last opened, items, out of stock, low stock,
+  today's sales, license state/expiry/days left, last backup, unsent backups, last error.
+  Red = not heard from for 2+ days, app not opened for 3+ days, or license expired / clock set
+  back. Amber = license ends within 3 days, or more than 2 backups waiting.
+- **Log** tab — one row per heartbeat or backup, for history and charts.
+
+"Last error" shows the latest app crash or failed backup, so problems surface without the shop
+having to report them. Open the sheet in the Google Sheets app on your phone to check it anywhere.
 3. **Build the APK**: `gradlew :app:assembleRelease` →
    `app/build/outputs/apk/release/app-release.apk`. Send it to the shop phone and install
    (allow "install unknown apps" once).

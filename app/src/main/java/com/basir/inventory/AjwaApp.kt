@@ -9,6 +9,7 @@ import com.basir.inventory.data.db.AppDatabase
 import com.basir.inventory.license.LicenseManager
 import com.basir.inventory.security.KeystoreSecrets
 import com.basir.inventory.ui.Notifications
+import com.basir.inventory.util.ErrorLog
 import com.basir.inventory.util.Fmt
 import com.basir.inventory.util.LocalePrefs
 
@@ -18,6 +19,7 @@ class AjwaApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ErrorLog.installCrashHandler(this)
         Fmt.bangla = LocalePrefs.isBangla(this)
         container = AppContainer(this)
         Notifications.createChannel(this)
