@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ajwa Sanitary logo: faucet with a water drop on a blue badge. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#0B6E99" android:pathData="M54,4a50,50 0,1 1,0 100a50,50 0,1 1,0 -100z" />
+    <path android:fillColor="#2BA3C4" android:pathData="M54,104a50,50 0,0 1,-48 -36h96a50,50 0,0 1,-48 36z" />
+    <group android:translateX="2" android:translateY="-1">
+    <!-- handle -->
+    <path android:fillColor="#FFFFFF" android:pathData="M30,33h20a2,2 0,0 1,2 2v1a2,2 0,0 1,-2 2h-20a2,2 0,0 1,-2 -2v-1a2,2 0,0 1,2 -2z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M38,37h4v5h-4z" />
+    <!-- body + spout -->
+    <path android:fillColor="#FFFFFF" android:pathData="M36,41h8a3,3 0,0 1,3 3v0h19a9,9 0,0 1,9 9v5h-7v-4a3,3 0,0 0,-3 -3h-18v22h-14v-29a3,3 0,0 1,3 -3z" />
+    <!-- base -->
+    <path android:fillColor="#FFFFFF" android:pathData="M29,73h22a2,2 0,0 1,2 2v2h-26v-2a2,2 0,0 1,2 -2z" />
+    <!-- water drop -->
+    <path android:fillColor="#9BE7FF" android:pathData="M71.5,62c0,0 -5.5,7.2 -5.5,10.3a5.5,5.5 0,0 0,11 0c0,-3.1 -5.5,-10.3 -5.5,-10.3z" />
+    </group>
+</vector>

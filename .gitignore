@@ -1,0 +1,18 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+captures/
+# Provider PRIVATE keys must never be committed or shipped.
+provider-keys/provider_keys.json
+*.jks
+*.keystore
+
+keystore.properties
+signing/
+
+# Backup relay endpoint/token and the private copy of the script.
+relay.properties
+backup-relay/Code.private.gs

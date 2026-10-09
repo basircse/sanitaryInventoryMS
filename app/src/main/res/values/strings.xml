@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default language: Bangla. English lives in values-en. -->
+<resources>
+    <string name="app_name">আজওয়া স্যানিটারি</string>
+    <string name="shop_name">আজওয়া স্যানিটারি</string>
+
+    <string name="nav_home">হোম</string>
+    <string name="nav_stock">স্টক</string>
+    <string name="nav_reports">রিপোর্ট</string>
+    <string name="nav_settings">সেটিংস</string>
+
+    <!-- Common -->
+    <string name="save">সংরক্ষণ</string>
+    <string name="cancel">বাতিল</string>
+    <string name="delete">মুছুন</string>
+    <string name="edit">সম্পাদনা</string>
+    <string name="add">যোগ করুন</string>
+    <string name="rename">নাম পরিবর্তন</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="confirm">নিশ্চিত</string>
+    <string name="close">বন্ধ</string>
+    <string name="back">পেছনে</string>
+    <string name="copied">কপি হয়েছে</string>
+    <string name="none">নেই</string>
+    <string name="err_required">এটি পূরণ করুন</string>
+    <string name="err_number">সঠিক সংখ্যা লিখুন</string>
+
+    <!-- Activation / lock -->
+    <string name="act_title_new">লাইসেন্স সক্রিয় করুন</string>
+    <string name="act_title_expired">লাইসেন্সের মেয়াদ শেষ</string>
+    <string name="act_title_clock">তারিখ/সময় ঠিক করুন</string>
+    <string name="act_msg_new">অ্যাপ চালু করতে আপনার অ্যাপ প্রোভাইডারের দেওয়া লাইসেন্স কী লিখুন।</string>
+    <string name="act_msg_expired">আপনার লাইসেন্সের মেয়াদ শেষ হয়েছে। অনুগ্রহ করে আপনার অ্যাপ প্রোভাইডারের কাছ থেকে নতুন কী সংগ্রহ করুন।</string>
+    <string name="act_msg_clock">ফোনের তারিখ বা সময় পিছিয়ে দেওয়া হয়েছে। সঠিক তারিখ ও সময় সেট করে অ্যাপটি আবার খুলুন।</string>
+    <string name="act_device_code">আপনার ডিভাইস কোড</string>
+    <string name="act_device_hint">নতুন কী পেতে এই কোডটি প্রোভাইডারকে পাঠান।</string>
+    <string name="act_send_code">হোয়াটসঅ্যাপে কোড পাঠান</string>
+    <string name="act_key_label">লাইসেন্স কী</string>
+    <string name="act_paste">পেস্ট</string>
+    <string name="act_activate">সক্রিয় করুন</string>
+    <string name="act_contact">প্রোভাইডারের সাথে যোগাযোগ</string>
+    <string name="act_call">কল</string>
+    <string name="act_whatsapp">হোয়াটসঅ্যাপ</string>
+    <string name="act_privacy">এই অ্যাপের ডেটার ব্যাকআপ এনক্রিপ্ট করে নিয়মিত স্বয়ংক্রিয়ভাবে প্রোভাইডারের কাছে পাঠানো হয়।</string>
+    <string name="act_success">লাইসেন্স সক্রিয় হয়েছে। মেয়াদ %1$s পর্যন্ত।</string>
+    <string name="wa_device_msg">আসসালামু আলাইকুম, আমার Ajwa Inventory ডিভাইস কোড: %1$s। অনুগ্রহ করে নতুন লাইসেন্স কী দিন।</string>
+    <string name="err_key_malformed">কী সঠিক নয়। পুরো কী কপি করে পেস্ট করুন।</string>
+    <string name="err_key_signature">এই কী আসল নয়।</string>
+    <string name="err_key_device">এই কী অন্য ফোনের জন্য তৈরি।</string>
+    <string name="err_key_used">এই কী আগে ব্যবহার করা হয়েছে।</string>
+    <string name="err_key_old">এই কী-এর ব্যবহারের সময় (৭ দিন) পার হয়ে গেছে। নতুন কী নিন।</string>
+    <string name="err_key_future">ফোনের তারিখ ভুল। সঠিক তারিখ সেট করুন।</string>
+
+    <!-- Dashboard -->
+    <string name="dash_expiry_warning">লাইসেন্সের মেয়াদ আর %1$s দিন বাকি। প্রোভাইডারের কাছ থেকে নতুন কী সংগ্রহ করুন।</string>
+    <string name="dash_expiry_today">আজ লাইসেন্সের মেয়াদ শেষ হবে। এখনই নতুন কী সংগ্রহ করুন।</string>
+    <string name="dash_enter_key">নতুন কী দিন</string>
+    <string name="dash_total_items">মোট পণ্য</string>
+    <string name="dash_low_stock">কম স্টক</string>
+    <string name="dash_out_of_stock">স্টক শেষ</string>
+    <string name="dash_today_sales">আজকের বিক্রি</string>
+    <string name="dash_stock_value">স্টকের মূল্য</string>
+    <string name="dash_recent_sales">সাম্প্রতিক বিক্রি</string>
+    <string name="dash_no_sales">এখনো কোনো বিক্রি নেই</string>
+    <string name="action_add_item">নতুন পণ্য</string>
+    <string name="action_sell">বিক্রি করুন</string>
+
+    <!-- Inventory list -->
+    <string name="inv_search">নাম বা কোড দিয়ে খুঁজুন</string>
+    <string name="inv_all_suppliers">সব সাপ্লায়ার</string>
+    <string name="inv_all_categories">সব ক্যাটাগরি</string>
+    <string name="inv_low_only">কম স্টক</string>
+    <string name="inv_empty">কোনো পণ্য পাওয়া যায়নি</string>
+    <string name="inv_count">%1$s টি পণ্য</string>
+    <string name="inv_pick_item">পণ্য বাছুন</string>
+
+    <!-- Item form -->
+    <string name="item_new">নতুন পণ্য</string>
+    <string name="item_edit">পণ্য সম্পাদনা</string>
+    <string name="f_name">পণ্যের নাম</string>
+    <string name="f_sku">কোড (SKU)</string>
+    <string name="f_sku_auto">খালি রাখলে নিজে থেকে তৈরি হবে</string>
+    <string name="f_category">ক্যাটাগরি</string>
+    <string name="f_subcategory">সাব-ক্যাটাগরি</string>
+    <string name="f_subsubcategory">সাব-সাব-ক্যাটাগরি</string>
+    <string name="f_supplier">সাপ্লায়ার</string>
+    <string name="f_unit">একক</string>
+    <string name="f_purchase_price">ক্রয় মূল্য (৳)</string>
+    <string name="f_selling_price">বিক্রয় মূল্য (৳)</string>
+    <string name="f_initial_qty">শুরুর স্টক</string>
+    <string name="f_threshold">কম স্টক সীমা (ঐচ্ছিক)</string>
+    <string name="f_threshold_hint">খালি রাখলে সাধারণ সীমা (%1$s) ব্যবহার হবে</string>
+    <string name="err_sku_taken">এই কোড আগে ব্যবহার হয়েছে</string>
+
+    <string name="unit_PCS">পিস</string>
+    <string name="unit_BOX">বক্স</string>
+    <string name="unit_FT">ফুট</string>
+    <string name="unit_SET">সেট</string>
+
+    <!-- Item detail -->
+    <string name="det_sell">বিক্রি</string>
+    <string name="det_stock_in">স্টক যোগ</string>
+    <string name="det_adjust">সমন্বয়</string>
+    <string name="det_history">স্টকের ইতিহাস</string>
+    <string name="det_in_stock">স্টকে আছে</string>
+    <string name="sell_title">বিক্রি: %1$s</string>
+    <string name="qty_label">পরিমাণ (%1$s)</string>
+    <string name="sell_total">মোট: %1$s</string>
+    <string name="err_not_enough">স্টকে যথেষ্ট নেই (আছে %1$s)</string>
+    <string name="err_qty_positive">শূন্যের বেশি পরিমাণ লিখুন</string>
+    <string name="stockin_title">স্টক যোগ: %1$s</string>
+    <string name="note_label">নোট (ঐচ্ছিক)</string>
+    <string name="adjust_title">স্টক সমন্বয়: %1$s</string>
+    <string name="adjust_new_qty">প্রকৃত স্টক (গণনা করে লিখুন)</string>
+    <string name="adjust_reason">কারণ (যেমন: ভাঙা, হারানো)</string>
+    <string name="mv_SALE">বিক্রি</string>
+    <string name="mv_STOCK_IN">স্টক যোগ</string>
+    <string name="mv_ADJUST">সমন্বয়</string>
+    <string name="mv_INITIAL">শুরুর স্টক</string>
+    <string name="mv_RESTORE">ব্যাকআপ থেকে</string>
+    <string name="delete_item_q">এই পণ্যটি মুছবেন?</string>
+    <string name="delete_item_blocked">এই পণ্যের বিক্রির রেকর্ড আছে, তাই মোছা যাবে না।</string>
+    <string name="sold_ok">বিক্রি সংরক্ষিত হয়েছে</string>
+    <string name="saved_ok">সংরক্ষিত হয়েছে</string>
+
+    <!-- Categories & suppliers -->
+    <string name="cat_title">ক্যাটাগরি</string>
+    <string name="cat_add_root">নতুন ক্যাটাগরি</string>
+    <string name="cat_add_child">ভেতরে যোগ</string>
+    <string name="cat_name">নাম</string>
+    <string name="cat_in_use">এটি ব্যবহৃত হচ্ছে বা ভেতরে সাব-ক্যাটাগরি আছে, তাই মোছা যাবে না।</string>
+    <string name="cat_empty">এখনো কোনো ক্যাটাগরি নেই</string>
+    <string name="sup_title">সাপ্লায়ার</string>
+    <string name="sup_add">নতুন সাপ্লায়ার</string>
+    <string name="sup_phone">ফোন (ঐচ্ছিক)</string>
+    <string name="sup_in_use">এই সাপ্লায়ারের পণ্য আছে, তাই মোছা যাবে না।</string>
+    <string name="name_taken">এই নাম আগে থেকেই আছে</string>
+
+    <!-- Reports -->
+    <string name="rep_low_stock">কম স্টক</string>
+    <string name="rep_sales">বিক্রি</string>
+    <string name="rep_supplier">সাপ্লায়ার</string>
+    <string name="rep_today">আজ</string>
+    <string name="rep_7days">৭ দিন</string>
+    <string name="rep_month">এই মাস</string>
+    <string name="rep_custom">তারিখ বাছুন</string>
+    <string name="rep_revenue">মোট বিক্রি</string>
+    <string name="rep_profit">লাভ</string>
+    <string name="rep_count">বিক্রির সংখ্যা</string>
+    <string name="rep_no_data">কোনো তথ্য নেই</string>
+    <string name="rep_items_count">পণ্য: %1$s</string>
+    <string name="rep_sell_value">বিক্রয় মূল্যে</string>
+    <string name="rep_cost_value">ক্রয় মূল্যে</string>
+    <string name="rep_share">CSV শেয়ার</string>
+    <string name="rep_no_supplier">সাপ্লায়ার নেই</string>
+    <string name="rep_total">সর্বমোট</string>
+
+    <!-- Settings -->
+    <string name="set_language">ভাষা</string>
+    <string name="set_threshold">সাধারণ কম স্টক সীমা</string>
+    <string name="set_threshold_desc">স্টক এই সংখ্যা বা তার কম হলে \"কম স্টক\" দেখাবে</string>
+    <string name="set_catalog">পণ্যের তালিকা</string>
+    <string name="set_backup">ব্যাকআপ</string>
+    <string name="set_backup_mode">স্বয়ংক্রিয় ব্যাকআপ: %1$s</string>
+    <string name="mode_DAILY">প্রতিদিন (রাত ৯টা)</string>
+    <string name="mode_WEEKLY">প্রতি সপ্তাহে</string>
+    <string name="mode_MONTHLY">প্রতি মাসে</string>
+    <string name="set_last_backup">শেষ ব্যাকআপ: %1$s</string>
+    <string name="set_never">কখনো না</string>
+    <string name="set_pending_upload">%1$s টি ব্যাকআপ পাঠানোর অপেক্ষায় (ইন্টারনেট চালু হলে যাবে)</string>
+    <string name="set_backup_now">এখনই ব্যাকআপ নিন</string>
+    <string name="set_backup_done">ব্যাকআপ তৈরি হয়েছে</string>
+    <string name="set_restore">ব্যাকআপ থেকে ফিরিয়ে আনুন</string>
+    <string name="restore_confirm_title">ডেটা ফিরিয়ে আনবেন?</string>
+    <string name="restore_confirm_msg">বর্তমান সব ডেটা মুছে এই ব্যাকআপের ডেটা বসানো হবে (%1$s টি পণ্য, %2$s টি বিক্রি, তারিখ %3$s)। তার আগে বর্তমান ডেটার একটি ব্যাকআপ রাখা হবে।</string>
+    <string name="restore_done">ডেটা ফিরিয়ে আনা হয়েছে</string>
+    <string name="restore_failed">ফিরিয়ে আনা যায়নি: %1$s</string>
+    <string name="set_license">লাইসেন্স</string>
+    <string name="set_license_info">কী #%1$s · মেয়াদ %2$s পর্যন্ত</string>
+    <string name="set_device">ডিভাইস কোড: %1$s</string>
+    <string name="set_enter_key">নতুন কী লিখুন</string>
+    <string name="set_provider">প্রোভাইডার: %1$s</string>
+    <string name="set_version">সংস্করণ %1$s</string>
+    <string name="working">অপেক্ষা করুন…</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel">রিমাইন্ডার</string>
+    <string name="notif_expiry_title">লাইসেন্সের মেয়াদ শেষ হচ্ছে</string>
+    <string name="notif_expiry_body">আর %1$s দিন বাকি। প্রোভাইডারের কাছ থেকে নতুন কী সংগ্রহ করুন।</string>
+    <string name="notif_expired_title">লাইসেন্সের মেয়াদ শেষ</string>
+    <string name="notif_expired_body">নতুন কী সংগ্রহ করুন: %1$s</string>
+</resources>
