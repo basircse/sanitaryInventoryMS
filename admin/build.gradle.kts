@@ -54,3 +54,11 @@ tasks.register<JavaExec>("initProviderKeys") {
     mainClass.set("com.basir.inventory.admin.InitKeysKt")
     args(rootProject.file("provider-keys/public.properties").absolutePath)
 }
+
+/** Converts a backup to a MySQL script: gradlew :admin:exportSql -Pbackup="C:\path\file.ajwb" */
+tasks.register<JavaExec>("exportSql") {
+    group = "ajwa"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("com.basir.inventory.admin.MysqlExportKt")
+    args(providers.gradleProperty("backup").orElse("").get())
+}

@@ -86,6 +86,10 @@ than a day, the app locks until the clock is fixed.
   Drive under *Ajwa Inventory Backups*.
 - Backups keep running after the license expires, so you can still see usage.
 - To read a backup: admin app → *Open backup* → choose the `.ajwb` file.
+- To load a backup into MySQL: admin app → *Open backup* → *Export as MySQL (.sql)*, or
+  `gradlew :admin:exportSql -Pbackup="C:\path\Ajwa_Backup_….ajwb"` (writes the `.sql` next to it).
+  Import with `mysql -u root -p < file.sql`, phpMyAdmin or MySQL Workbench. It creates/replaces the
+  `ajwa_inventory` database tables; money is in taka, quantities in units, times in Bangladesh time.
 
 **Restoring**
 - Same phone: Settings → *Restore from backup* → choose a file from `Backups/`.

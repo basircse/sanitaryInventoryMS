@@ -221,6 +221,11 @@ private fun BackupTab(keys: ProviderKeys) {
                 val out = chooseFile(load = false, "Save JSON", (file?.nameWithoutExtension ?: "backup") + ".json") ?: return@OutlinedButton
                 out.writeText(json); message = "Saved $out"
             }) { Text("Export as JSON") }
+            OutlinedButton(onClick = {
+                val out = chooseFile(load = false, "Save MySQL script", (file?.nameWithoutExtension ?: "backup") + ".sql") ?: return@OutlinedButton
+                out.writeText(MysqlExport.toSql(d, "ajwa_inventory"))
+                message = "Saved $out — import with phpMyAdmin, MySQL Workbench or: mysql -u root -p < \"${out.name}\""
+            }) { Text("Export as MySQL (.sql)") }
         }
 
         HorizontalDivider()
