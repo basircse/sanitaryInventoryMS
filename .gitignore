@@ -15,4 +15,7 @@ signing/
 
 # Backup relay endpoint/token and the private copy of the script.
 relay.properties
-backup-relay/Code.private.gs
+backup-relay/Ajwa backup relay.gs
+
+# Built APKs copied out for sharing
+*.apk

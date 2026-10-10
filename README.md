@@ -16,7 +16,7 @@ encrypted backups e-mailed to the provider.
 |---|---|
 | `%APPDATA%\AjwaAdmin\provider_keys.properties` | Provider **private** keys. Without them you cannot issue keys or open backups. If leaked, anyone can make license keys. |
 | `signing/ajwa-release.jks` + `keystore.properties` | APK signing key. Without it, updates cannot be installed over the existing app, and every phone's device code changes. |
-| `relay.properties`, `backup-relay/Code.private.gs` | Backup upload URL and token (git-ignored). |
+| `relay.properties`, `backup-relay/Ajwa backup relay.gs` | Backup upload URL and token (git-ignored). |
 | `%APPDATA%\AjwaAdmin\issued_keys.csv` | Log of every key issued (serial numbers continue from here). |
 
 `provider-keys/public.properties` holds only the public halves; it is safe to keep in the project.
@@ -28,7 +28,7 @@ encrypted backups e-mailed to the provider.
    `gradlew :admin:initProviderKeys` on a PC that has no keys yet.)
 2. **Backup e-mail relay** (Google Apps Script, free):
    1. Sign in to basirtechno@gmail.com, open <https://script.google.com> → *New project*.
-   2. Replace the code with `backup-relay/Code.private.gs` (your local copy with the real token;
+   2. Replace the code with `backup-relay/Ajwa backup relay.gs` (your local copy with the real token;
       the committed `Code.gs` has `CHANGE-ME`) and save (name it "Ajwa backup relay").
    3. *Deploy → New deployment → Web app*. Execute as **Me**, Who has access **Anyone**. Deploy and
       allow the Gmail/Drive permissions it asks for.
@@ -36,9 +36,10 @@ encrypted backups e-mailed to the provider.
       Opening that URL in a browser should show `{"ok":true,...}`.
    5. `token` in `relay.properties` must equal `TOKEN` in the script. Both files are git-ignored;
       on a fresh clone create `relay.properties` with `endpoint=` and `token=<random string>`.
-   6. In the script editor, choose the function `setupMonitorSheet` and click *Run* once. It
-      asks for Google Sheets permission and creates the **Ajwa Inventory Monitor** sheet (its link
-      is e-mailed to you).
+   6. In the script editor, choose the function `authorize` and click *Run* once. On Google's
+      permission screen tick **every** box (Gmail send, Drive, Sheets) — a missing Drive or Gmail
+      permission makes backups fail silently. It also creates the **Ajwa Inventory Monitor** sheet
+      (its link is e-mailed to you). After granting, use *Manage deployments → Edit → New version*.
    Gmail allows ~100 e-mails/day from scripts — plenty for daily backups from one shop.
 
    **Updating the script later:** paste the new code, then *Deploy → Manage deployments → ✏️ Edit

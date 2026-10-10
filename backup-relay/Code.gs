@@ -13,7 +13,7 @@
  * The attachment is encrypted; open it with the "Ajwa Inventory Admin" Windows app.
  * Setup steps: see README.md in this folder.
  */
-const TOKEN = 'CHANGE-ME'; // must equal token in relay.properties (use Code.private.gs locally)
+const TOKEN = 'CHANGE-ME'; // must equal token in relay.properties (use "Ajwa backup relay.gs" locally)
 const TO = 'basirtechno@gmail.com';
 const ROOT_FOLDER = 'Ajwa Inventory Backups';
 const TZ = 'Asia/Dhaka';
@@ -30,28 +30,50 @@ function doPost(e) {
 
     const s = req.summary || {};
     const shop = s.shopName || req.shop || 'Unknown shop';
-    const folder = folder_([ROOT_FOLDER, shop + ' ' + (s.deviceCode || '')]);
 
-    // A retried upload must not create a second copy or a second e-mail.
-    if (folder.getFilesByName(req.fileName).hasNext()) return reply_({ ok: true, duplicate: true });
+    // A retried upload must not send a second e-mail.
+    const cache = CacheService.getScriptCache();
+    if (cache.get('sent:' + req.fileName)) return reply_({ ok: true, duplicate: true });
 
     const blob = Utilities.newBlob(Utilities.base64Decode(req.file), 'application/octet-stream', req.fileName);
-    folder.createFile(blob);
+
+    // Drive copy is a convenience: if it fails (e.g. Drive permission missing) still send the e-mail.
+    let folderUrl = '-';
+    try {
+      const folder = folder_([ROOT_FOLDER, shop + ' ' + (s.deviceCode || '')]);
+      if (folder.getFilesByName(req.fileName).hasNext()) return reply_({ ok: true, duplicate: true });
+      folder.createFile(blob);
+      folderUrl = folder.getUrl();
+    } catch (driveErr) {
+      console.error(driveErr);
+      folderUrl = 'not saved (' + String(driveErr).slice(0, 120) + ')';
+    }
 
     MailApp.sendEmail({
       to: TO,
       subject: shop + ' backup ' + fmtDate_(s.createdAt) + ' · ' + (s.itemCount || 0) + ' items · ' +
         (s.salesCountSinceLastBackup || 0) + ' new sales',
-      body: summaryText_(s, shop, folder.getUrl()),
+      body: summaryText_(s, shop, folderUrl),
       attachments: [blob],
       name: 'Ajwa Inventory',
     });
+    cache.put('sent:' + req.fileName, '1', 21600);
     // Monitoring is best effort: a sheet problem must not make the phone resend the backup.
     try { logBackup_(s, shop); } catch (sheetErr) { console.error(sheetErr); }
     return reply_({ ok: true });
   } catch (err) {
     return reply_({ ok: false, error: String(err) });
   }
+}
+
+/**
+ * Run once from the editor (choose "authorize", click Run) and tick EVERY permission box:
+ * Gmail send, Drive and Sheets. Then Deploy > Manage deployments > Edit > New version.
+ */
+function authorize() {
+  DriveApp.getRootFolder();
+  console.log('E-mail quota left today: ' + MailApp.getRemainingDailyQuota());
+  setupMonitorSheet();
 }
 
 /** Opening the URL in a browser just confirms the deployment works. */
