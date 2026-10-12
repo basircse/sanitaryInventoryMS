@@ -3,23 +3,27 @@
 Offline Android inventory app for **Ajwa Sanitary** with offline license keys and automatic
 encrypted backups e-mailed to the provider.
 
-| Module | What it is |
+| Folder | What it is |
 |---|---|
-| `app/` | Android app (`com.basir.inventory`, min Android 7.0). Kotlin, Jetpack Compose, Room on SQLCipher, WorkManager. Bangla by default. |
-| `admin/` | **Ajwa Inventory Admin** — Windows app for the provider: issue license keys, open backups, move data to a new phone. |
-| `shared/` | Code used by both: license key format (Ed25519), backup encryption (X25519 + AES-GCM), backup data model. |
+| `android/` | Gradle project (run `gradlew` from here; open this folder in Android Studio): |
+| `android/app/` | Android app (`com.basir.inventory`, min Android 7.0). Kotlin, Jetpack Compose, Room on SQLCipher, WorkManager. Bangla by default. |
+| `android/admin/` | **Ajwa Inventory Admin** — Windows app for the provider: issue license keys, open backups, move data to a new phone. |
+| `android/shared/` | Code used by both: license key format (Ed25519), backup encryption (X25519 + AES-GCM), backup data model. |
+| `web/` | Web version for phone browsers: Spring Boot API + React app on MySQL, same license keys and backups. See [web/README.md](web/README.md). |
 | `backup-relay/` | Google Apps Script that receives backups and e-mails them to basirtechno@gmail.com. |
+| `releases/` | Built APK and the user manual (git-ignored). |
+| `deploy/` | Ready-to-copy web deployment, built by `web/build-deploy.ps1` (git-ignored: holds secrets). |
 
 ## Secrets — back these up (USB + Google Drive), never share them
 
 | File | Why it matters |
 |---|---|
 | `%APPDATA%\AjwaAdmin\provider_keys.properties` | Provider **private** keys. Without them you cannot issue keys or open backups. If leaked, anyone can make license keys. |
-| `signing/ajwa-release.jks` + `keystore.properties` | APK signing key. Without it, updates cannot be installed over the existing app, and every phone's device code changes. |
-| `relay.properties`, `backup-relay/Ajwa backup relay.gs` | Backup upload URL and token (git-ignored). |
+| `android/signing/ajwa-release.jks` + `android/keystore.properties` | APK signing key. Without it, updates cannot be installed over the existing app, and every phone's device code changes. |
+| `android/relay.properties`, `backup-relay/Ajwa backup relay.gs` | Backup upload URL and token (git-ignored). |
 | `%APPDATA%\AjwaAdmin\issued_keys.csv` | Log of every key issued (serial numbers continue from here). |
 
-`provider-keys/public.properties` holds only the public halves; it is safe to keep in the project.
+`android/provider-keys/public.properties` holds only the public halves; it is safe to keep in the project.
 
 ## One-time setup
 
@@ -32,10 +36,10 @@ encrypted backups e-mailed to the provider.
       the committed `Code.gs` has `CHANGE-ME`) and save (name it "Ajwa backup relay").
    3. *Deploy → New deployment → Web app*. Execute as **Me**, Who has access **Anyone**. Deploy and
       allow the Gmail/Drive permissions it asks for.
-   4. Copy the web-app URL (ends in `/exec`) into `relay.properties` → `endpoint=`.
+   4. Copy the web-app URL (ends in `/exec`) into `android/relay.properties` → `endpoint=`.
       Opening that URL in a browser should show `{"ok":true,...}`.
-   5. `token` in `relay.properties` must equal `TOKEN` in the script. Both files are git-ignored;
-      on a fresh clone create `relay.properties` with `endpoint=` and `token=<random string>`.
+   5. `token` in `android/relay.properties` must equal `TOKEN` in the script. Both files are git-ignored;
+      on a fresh clone create `android/relay.properties` with `endpoint=` and `token=<random string>`.
    6. In the script editor, choose the function `authorize` and click *Run* once. On Google's
       permission screen tick **every** box (Gmail send, Drive, Sheets) — a missing Drive or Gmail
       permission makes backups fail silently. It also creates the **Ajwa Inventory Monitor** sheet
@@ -59,11 +63,11 @@ backup, in the **Ajwa Inventory Monitor** sheet in your Google Drive:
 
 "Last error" shows the latest app crash or failed backup, so problems surface without the shop
 having to report them. Open the sheet in the Google Sheets app on your phone to check it anywhere.
-3. **Build the APK**: `gradlew :app:assembleRelease` →
-   `app/build/outputs/apk/release/app-release.apk`. Send it to the shop phone and install
+3. **Build the APK** (commands below run in `android/`): `gradlew :app:assembleRelease` →
+   `android/app/build/outputs/apk/release/app-release.apk`. Send it to the shop phone and install
    (allow "install unknown apps" once).
 4. **Build the admin installer**: `gradlew :admin:packageExe` →
-   `admin/build/compose/binaries/main/exe/Ajwa Inventory Admin-1.0.0.exe`.
+   `android/admin/build/compose/binaries/main/exe/Ajwa Inventory Admin-1.0.0.exe`.
 
 ## Daily operations
 
@@ -99,6 +103,8 @@ than a day, the app locks until the clock is fixed.
 - A restore first backs up the current data, then replaces everything in one transaction.
 
 ## Development
+
+Run these from `android/`:
 
 ```
 gradlew :shared:test :app:testDebugUnitTest   # unit tests

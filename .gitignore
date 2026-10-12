@@ -6,7 +6,7 @@ local.properties
 .kotlin/
 captures/
 # Provider PRIVATE keys must never be committed or shipped.
-provider-keys/provider_keys.json
+android/provider-keys/provider_keys.json
 *.jks
 *.keystore
 
@@ -17,5 +17,16 @@ signing/
 relay.properties
 backup-relay/Ajwa backup relay.gs
 
-# Built APKs copied out for sharing
+# Built APKs and other release files copied out for sharing
 *.apk
+releases/
+
+# Web deployment package: contains the built jar, database password and relay token.
+deploy/
+
+# Build outputs copied into the deploy template (the jar embeds the DB password and relay token).
+web/deploy-template/ajwa-web.jar
+web/deploy-template/client/
+
+# Web server secrets packed into the jar (DB password, relay endpoint/token).
+web/server/src/main/resources/secrets.properties

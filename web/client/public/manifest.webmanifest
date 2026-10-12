@@ -1,0 +1,9 @@
+{
+  "name": "Ajwa Sanitary Inventory",
+  "short_name": "Ajwa Sanitary",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7FAFC",
+  "theme_color": "#0B6E99",
+  "icons": [{ "src": "/logo.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
